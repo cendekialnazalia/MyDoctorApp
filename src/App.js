@@ -1,8 +1,8 @@
 import React from 'react';
-import {Splash} from './pages';
+import {GetStarted, Splash} from './pages';
 
 const App = () => {
-  return <Splash />;
+  return <GetStarted />;
 };
 
 export default App;

@@ -13,10 +13,11 @@ const Link = ({title, size, align}) => {
 export default Link;
 
 const styles = StyleSheet.create({
-  text: size => ({
+  text: (size, align) => ({
     fontSize: size,
     color: colors.text.secondary,
     fontFamily: fonts.primary[400],
     textDecorationLine: 'underline',
+    textAlign: align,
   }),
 });

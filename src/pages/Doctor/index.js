@@ -6,12 +6,13 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
+import {colors, fonts} from '../../utils';
 
 const Doctor = () => {
   return (
-    <View>
+    <View style={styles.page}>
       <HomeProfile />
-      <Text>Mau konsultasi dengan siapa hari ini?</Text>
+      <Text style={styles.welcome}>Mau konsultasi dengan siapa hari ini?</Text>
       <DoctorCategory />
       <DoctorCategory />
       <DoctorCategory />
@@ -30,4 +31,14 @@ const Doctor = () => {
 
 export default Doctor;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  page: {paddingVertical: 30, paddingHorizontal: 16},
+  welcome: {
+    fontSize: 20,
+    fontFamily: fonts.primary[600],
+    color: colors.text.primary,
+    marginTop: 30,
+    marginBottom: 16,
+    maxWidth: 209,
+  },
+});

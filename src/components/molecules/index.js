@@ -2,6 +2,7 @@ import BottomNavigator from './BottomNavigator';
 import DoctorCategory from './DoctorCategory';
 import Header from './Header';
 import HomeProfile from './HomeProfile';
+import ListDoctor from './ListDoctor';
 import NewsItem from './NewsItem';
 import RatedDoctor from './RatedDoctor';
 
@@ -12,4 +13,5 @@ export {
   DoctorCategory,
   RatedDoctor,
   NewsItem,
+  ListDoctor,
 };

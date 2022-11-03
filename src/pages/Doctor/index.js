@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {JSONCategoryDoctor} from '../../assets';
 import {
   DoctorCategory,
   Gap,
@@ -26,10 +27,11 @@ const Doctor = () => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Gap width={32} />
-                <DoctorCategory />
-                <DoctorCategory />
-                <DoctorCategory />
-                <DoctorCategory />
+                {JSONCategoryDoctor.data.map(item => {
+                  return (
+                    <DoctorCategory key={item.id} category={item.category} />
+                  );
+                })}
                 <Gap width={22} />
               </View>
             </ScrollView>

@@ -1,18 +1,19 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {IconNext} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const ListDoctor = ({profile, name, desc, type}) => {
+const ListDoctor = ({profile, name, desc, type, onPress}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={profile} style={styles.avatar} />
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.desc}>{desc}</Text>
       </View>
       {type === 'next' && <IconNext />}
-    </View>
+    </TouchableOpacity>
   );
 };
 

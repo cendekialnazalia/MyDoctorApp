@@ -1,5 +1,5 @@
 import React from 'react';
-import IsMe from './isMe';
+import IsMe from './IsMe';
 import Other from './Other';
 
 const ChatItem = ({isMe}) => {

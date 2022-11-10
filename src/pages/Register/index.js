@@ -7,8 +7,8 @@ const Register = ({navigation}) => {
   return (
     <View style={styles.page}>
       <Header onPress={() => navigation.goBack()} title="Daftar Akun" />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.content}>
+      <View style={styles.content}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Input label="Full Name" />
           <Gap height={24} />
           <Input label="Pekerjaan" />
@@ -21,8 +21,8 @@ const Register = ({navigation}) => {
             title="Continue"
             onPress={() => navigation.navigate('UploadPhoto')}
           />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };

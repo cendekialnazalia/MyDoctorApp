@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
-import {colors} from '../../utils';
+import {colors, useFrom} from '../../utils';
 
 const Register = ({navigation}) => {
-  const [fullName, setFullName] = useState('value awal full name');
-  const [profession, setProfession] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useFrom({
+    fullName: '',
+    profession: '',
+    email: '',
+    password: '',
+  });
 
   const onContinue = () => {
-    console.log(fullName, profession, email, password);
+    console.log(form);
     // navigation.navigate('UploadPhoto')}
   };
   return (
@@ -20,26 +22,26 @@ const Register = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Input
             label="Full Name"
-            value={fullName}
-            onChangetext={value => setFullName(value)}
+            value={form.fullName}
+            onChangetext={value => setForm('fullName', value)}
           />
           <Gap height={24} />
           <Input
             label="Pekerjaan"
-            value={profession}
-            onChangetext={value => setProfession(value)}
+            value={form.profession}
+            onChangetext={value => setForm('prodession', value)}
           />
           <Gap height={24} />
           <Input
             label="Email"
-            value={email}
-            onChangetext={value => setEmail(value)}
+            value={form.email}
+            onChangetext={value => setForm('email', value)}
           />
           <Gap height={24} />
           <Input
             label="Password"
-            value={password}
-            onChangetext={value => setPassword(value)}
+            value={form.password}
+            onChangetext={value => setForm('password', value)}
             secureTextEntry
           />
           <Gap height={40} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
+import {Firebase} from '../../config';
 import {colors, useFrom} from '../../utils';
 
 const Register = ({navigation}) => {
@@ -14,6 +15,19 @@ const Register = ({navigation}) => {
   const onContinue = () => {
     console.log(form);
     // navigation.navigate('UploadPhoto')}
+
+    Firebase.auth()
+      .createUserWithEmailAndPassword(form.email, form.password)
+      .then(sucess => {
+        // Signed in
+        console.log('register success: ', sucess);
+        // ...
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        console.log('error register: ', errorMessage);
+        // ..
+      });
   };
   return (
     <View style={styles.page}>
@@ -29,7 +43,7 @@ const Register = ({navigation}) => {
           <Input
             label="Pekerjaan"
             value={form.profession}
-            onChangetext={value => setForm('prodession', value)}
+            onChangetext={value => setForm('profession', value)}
           />
           <Gap height={24} />
           <Input

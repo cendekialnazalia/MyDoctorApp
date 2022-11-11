@@ -1,6 +1,8 @@
-import firebase from 'firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
-firebase.intializeApp({
+firebase.initializeApp({
   apiKey: 'AIzaSyC0xNj-1hUBRpic4Qs1w8iKnS9JBuDrsOM',
   authDomain: 'my-doctor-01-daa74.firebaseapp.com',
   projectId: 'my-doctor-01-daa74',

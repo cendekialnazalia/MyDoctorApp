@@ -23,6 +23,7 @@ const Register = ({navigation}) => {
       .then(sucess => {
         // Signed in
         setLoading(false);
+        setForm('reset');
         console.log('register success: ', sucess);
         // ...
       })

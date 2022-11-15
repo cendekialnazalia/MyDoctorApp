@@ -8,6 +8,8 @@ const MainColors = {
   grey2: '#E9E9E9',
   grey3: '#EDEEF0',
   blue1: '#0066CB',
+  black: '#000000',
+  black2: 'rgba(0,0,0,0.5)',
 };
 
 export const colors = {
@@ -36,4 +38,5 @@ export const colors = {
   },
   border: MainColors.grey2,
   cardLight: MainColors.green2,
+  loadingBackground: MainColors.black2,
 };

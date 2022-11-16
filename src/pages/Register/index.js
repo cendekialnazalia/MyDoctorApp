@@ -22,11 +22,21 @@ const Register = ({navigation}) => {
     setLoading(true);
     Firebase.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
-      .then(sucess => {
+      .then(success => {
         // Signed in
         setLoading(false);
         setForm('reset');
-        console.log('register success: ', sucess);
+        //https://firebase.com/i39d9w9chd
+        const data = {
+          fullName: form.fullName,
+          profession: form.profession,
+          email: form.email,
+        };
+
+        Firebase.database()
+          .ref('users/' + success.user.uid + '/')
+          .set(data);
+        console.log('register success: ', success);
         // ...
       })
       .catch(error => {

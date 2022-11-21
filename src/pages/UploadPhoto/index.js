@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {useState} from 'react';
-import {Button, Gap, Header, Link} from '../../components';
-import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
-import {colors, fonts} from '../../utils';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
+import {Button, Gap, Header, Link} from '../../components';
+import {colors, fonts} from '../../utils';
+import {showMessage} from 'react-native-flash-message';
 
 const UploadPhoto = ({navigation}) => {
   const [hasPhoto, setHasPhoto] = useState(false);
@@ -12,9 +13,18 @@ const UploadPhoto = ({navigation}) => {
   const getImage = () => {
     launchImageLibrary({}, response => {
       console.log('response: ', response);
-      const source = {uri: response.uri};
-      setPhoto(source);
-      setHasPhoto(true);
+      if (response.didCancel || response.error) {
+        showMessage({
+          message: 'oops, sepertinya anda tidak memilih fotonya?',
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+      } else {
+        const source = {uri: response.uri};
+        setPhoto(source);
+        setHasPhoto(true);
+      }
     });
   };
   return (

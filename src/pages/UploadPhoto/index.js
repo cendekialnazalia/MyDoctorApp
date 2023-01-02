@@ -6,10 +6,11 @@ import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
 import {colors, fonts} from '../../utils';
 import {showMessage} from 'react-native-flash-message';
+import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
-  const {fullName, profession} = route.params;
-
+  const {fullName, profession, uid} = route.params;
+  const [photoForDB, setPhotoForDB] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
   const getImage = () => {
@@ -23,12 +24,24 @@ const UploadPhoto = ({navigation, route}) => {
           color: colors.white,
         });
       } else {
+        console.log('response getImage: ', response);
         const source = {uri: response.uri};
+
+        setPhotoForDB(`data:${response.type}, ${response.data}`);
         setPhoto(source);
         setHasPhoto(true);
       }
     });
   };
+
+  const uploadAndContinue = () => {
+    Firebase.database()
+      .ref('users/' + uid + '/')
+      .update({photo: photoForDB});
+
+    navigation.replace('MainApp');
+  };
+
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" />
@@ -46,7 +59,7 @@ const UploadPhoto = ({navigation, route}) => {
           <Button
             disable={!hasPhoto}
             title="Upload and Continue"
-            onPress={() => navigation.replace('MainApp')}
+            onPress={uploadAndContinue}
           />
           <Gap height={30} />
           <Link

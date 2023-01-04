@@ -9,29 +9,32 @@ import {showMessage} from 'react-native-flash-message';
 import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
-  const {fullName, profession, uid} = route.params;
+  // const {fullName, profession, uid} = route.params;
   const [photoForDB, setPhotoForDB] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
   const getImage = () => {
-    launchImageLibrary({}, response => {
-      console.log('response: ', response);
-      if (response.didCancel || response.error) {
-        showMessage({
-          message: 'oops, sepertinya anda tidak memilih fotonya?',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
-      } else {
-        console.log('response getImage: ', response);
-        const source = {uri: response.uri};
+    launchImageLibrary(
+      {quality: 0.5, maxWidth: 200, maxHeight: 200},
+      response => {
+        console.log('response: ', response);
+        if (response.didCancel || response.error) {
+          showMessage({
+            message: 'oops, sepertinya anda tidak memilih fotonya?',
+            type: 'default',
+            backgroundColor: colors.error,
+            color: colors.white,
+          });
+        } else {
+          console.log('response getImage: ', response);
+          const source = {uri: response.uri};
 
-        setPhotoForDB(`data:${response.type}, ${response.data}`);
-        setPhoto(source);
-        setHasPhoto(true);
-      }
-    });
+          setPhotoForDB(`data:${response.type}, ${response.data}`);
+          setPhoto(source);
+          setHasPhoto(true);
+        }
+      },
+    );
   };
 
   const uploadAndContinue = () => {
@@ -52,8 +55,8 @@ const UploadPhoto = ({navigation, route}) => {
             {hasPhoto && <IconRemovePhoto style={styles.removePhoto} />}
             {!hasPhoto && <IconAddPhoto style={styles.addPhoto} />}
           </TouchableOpacity>
-          <Text style={styles.name}>{fullName}</Text>
-          <Text style={styles.profession}>{profession}</Text>
+          <Text style={styles.name}>aaaa</Text>
+          <Text style={styles.profession}>profesi</Text>
         </View>
         <View>
           <Button

@@ -4,12 +4,12 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, storeData} from '../../utils';
 import {showMessage} from 'react-native-flash-message';
 import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
-  // const {fullName, profession, uid} = route.params;
+  const {fullName, profession, uid} = route.params;
   const [photoForDB, setPhotoForDB] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
@@ -27,7 +27,7 @@ const UploadPhoto = ({navigation, route}) => {
           });
         } else {
           console.log('response getImage: ', response);
-          const source = {uri: response.uri};
+          const source = {uri: response.assets[0].uri};
 
           setPhotoForDB(`data:${response.type}, ${response.data}`);
           setPhoto(source);
@@ -42,6 +42,11 @@ const UploadPhoto = ({navigation, route}) => {
       .ref('users/' + uid + '/')
       .update({photo: photoForDB});
 
+    const data = route.params;
+    data.photo = photoForDB;
+
+    storeData('user', data);
+
     navigation.replace('MainApp');
   };
 
@@ -55,8 +60,8 @@ const UploadPhoto = ({navigation, route}) => {
             {hasPhoto && <IconRemovePhoto style={styles.removePhoto} />}
             {!hasPhoto && <IconAddPhoto style={styles.addPhoto} />}
           </TouchableOpacity>
-          <Text style={styles.name}>aaaa</Text>
-          <Text style={styles.profession}>profesi</Text>
+          <Text style={styles.name}>{fullName}</Text>
+          <Text style={styles.profession}>{profession}</Text>
         </View>
         <View>
           <Button

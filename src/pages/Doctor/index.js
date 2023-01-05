@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -14,9 +14,15 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getData} from '../../utils';
 
 const Doctor = ({navigation}) => {
+  useEffect(() => {
+    getData('user').then(res => {
+      console.log('data user: ', res);
+    });
+  }, []);
+
   return (
     <View style={styles.page}>
       <View style={styles.content}>

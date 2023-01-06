@@ -29,7 +29,7 @@ const UploadPhoto = ({navigation, route}) => {
           console.log('response getImage: ', response);
           const source = {uri: response.assets[0].uri};
 
-          setPhotoForDB(`data:${response.type}, ${response.data}`);
+          setPhotoForDB(`data:${response.type};base64, ${response.data}`);
           setPhoto(source);
           setHasPhoto(true);
         }

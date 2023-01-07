@@ -16,7 +16,7 @@ const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
-    console.log(form);
+    // console.log(form);
     // const data = {
     //   fullName: form.fullName,
     //   profession: form.profession,
@@ -36,7 +36,6 @@ const Register = ({navigation}) => {
           email: form.email,
           uid: success.user.uid,
         };
-
         Firebase.database()
           .ref('users/' + success.user.uid + '/')
           .set(data);

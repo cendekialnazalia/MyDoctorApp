@@ -7,6 +7,7 @@ import {Firebase} from '../../config';
 import {showMessage} from 'react-native-flash-message';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {ILNullPhoto} from '../../assets';
+import {color} from 'react-native-reanimated';
 
 const UpdateProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -28,9 +29,48 @@ const UpdateProfile = ({navigation}) => {
 
   const update = () => {
     console.log('profile', profile);
+
+    console.log('new Password: ', password);
+
+    if (password.length > 0) {
+      if (password.length < 6) {
+        showMessage({
+          message: 'Password kurang dari 6 karakter',
+          type: 'default',
+          backgroundColor: colors.error,
+          color: 'white',
+        });
+      } else {
+        //update password
+        updatePassword();
+        updateProfileData();
+        navigation.replace('MainApp');
+      }
+    } else {
+      updateProfileData();
+      navigation.replace('MainApp');
+    }
+  };
+
+  const updatePassword = () => {
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        //update password
+        user.updatePassword(password).catch(err => {
+          showMessage({
+            message: err.message,
+            type: 'default',
+            backgroundColor: colors.error,
+            color: 'white',
+          });
+        });
+      }
+    });
+  };
+
+  const updateProfileData = () => {
     const data = profile;
     data.photo = photoForDB;
-
     Firebase.database()
       .ref(`users/${profile.uid}/`)
       .update(data)
@@ -98,7 +138,12 @@ const UpdateProfile = ({navigation}) => {
           <Gap height={24} />
           <Input label="Email" value={profile.email} disable />
           <Gap height={24} />
-          <Input label="Password" value={password} />
+          <Input
+            label="Password"
+            value={password}
+            onChangetext={value => setPassword(value)}
+            secureTextEntry
+          />
           <Gap height={40} />
           <Button title="Save Profile" onPress={update} />
         </View>
